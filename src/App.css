@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.text-paragraph {
+  background: #73838c;
+}
+
+.text-title {
+  background: #2e3438;
+}
+
+.container-fluid {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}

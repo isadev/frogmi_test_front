@@ -1,0 +1,90 @@
+:root {
+  --bs-body-font-family: "Manrope" !important;
+
+  --principal-color: #7922a5;
+  --second-color: #e4d3ed;
+
+  --title-color: #2e3438;
+  --title-second-color: #f9fafa;
+  --no-title-color: #73838c;
+  --background-input-color: #f4f5f6;
+
+  font-size: 14px !important;
+}
+
+.font-high {
+  font: normal normal bold 5em /108% "Kumbh Sans" !important;
+}
+
+.font-mid {
+  font: normal normal bold 3.4em /72% "Kumbh Sans" !important;
+}
+
+.font-low {
+  font: normal normal bold 1.7em /36% "Kumbh Sans" !important;
+}
+
+.font-nav {
+  font: normal normal 600 1.1em /29% "Kumbh Sans" !important;
+}
+
+.font-section {
+  font: normal normal 600 1em /21% "Kumbh Sans" !important;
+}
+
+.p-normal,
+.span-normal {
+  font: normal normal normal 1.1em /29% "Manrope" !important;
+}
+
+.p-semi {
+  font-weight: 600;
+  font-size: 1.1em;
+  line-height: 2em;
+}
+
+.p-small-normal,
+.span-small-normal {
+  font: normal normal 400 1em /29% "Manrope" !important;
+}
+
+.p-small-semi,
+.span-small-semi {
+  font: normal normal 600 1em /29% "Manrope" !important;
+}
+
+.principal-btn {
+  width: Hug (78px) px;
+  height: Fixed (32px) px;
+  top: 20px;
+  left: 20px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 6px 0px 0px 0px;
+  opacity: 0px;
+  background: var(--principal-color);
+}
+
+.second-btn {
+  width: Hug (78px) px;
+  height: Fixed (32px) px;
+  top: 20px;
+  left: 20px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 6px 0px 0px 0px;
+  opacity: 0px;
+  background: var(--second-color);
+}
+
+body {
+  margin: 0;
+  font-family: var(--bs-body-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
