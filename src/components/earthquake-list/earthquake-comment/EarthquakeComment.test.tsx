@@ -10,11 +10,29 @@ jest.mock("axios");
 describe("EarthquakeComment component", () => {
   test("submits a new earthquake comment", async () => {
     const mockedResponse = { data: { body: "un comentario" } };
+    const earthquakeMock = {
+      id: 1,
+      type: "Feature",
+      attributes: {
+        external_url: "string",
+        external_id: "string",
+        magnitude: 0,
+        place: "string",
+        time: "string",
+        tsunami: false,
+        mag_type: "string",
+        title: "string",
+        coordinates: {
+          longitude: 10,
+          latitude: 1.0,
+        },
+      },
+    };
     const postEarthquakeCommentMock = postComment as jest.Mock;
     postEarthquakeCommentMock.mockResolvedValue(mockedResponse.data.body);
 
     const { getByText, getByRole } = render(
-      <EarthquakeComment earthquakeId="1" />
+      <EarthquakeComment earthquake={earthquakeMock} />
     );
 
     // TODO: agregar test de api post comment

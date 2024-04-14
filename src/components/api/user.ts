@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const postComment = async (
   commentText: string,
-  earthquakeId: string
+  earthquakeId: number
 ) => {
   try {
     const params = {
@@ -16,10 +16,11 @@ export const postComment = async (
       console.log(res);
       return res.data.authorization;
     });
-  } catch (error) {
-    throw new Error(
+  } catch (error: any) {
+    console.error(
       `Failed to post a comment in earthquakeId: ${earthquakeId}, with error: ${error}`
     );
+    throw new Error(error.data.statusCode);
   }
 };
 
