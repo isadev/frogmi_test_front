@@ -71,7 +71,7 @@ export const getFeatures = async ({
     const params = {
       method: "GET",
       url: `http://localhost:3000/api/features`,
-      query: { page, per_page: perPage, mag_type },
+      params: { page, per_page: perPage, mag_type },
     };
 
     return axios(params).then((res) => {

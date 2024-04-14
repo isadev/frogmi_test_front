@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./Earthquakes.css";
 import EarthquakeComment from "./earthquake-comment/EarthquakeComment";
 import { Row, Col, Card } from "react-bootstrap";
-
-import { IEarthquake, IPaging, getFeatures } from "../api/user";
+import {
+  IEarthquake,
+  IPaging,
+  IResponseEarthquakes,
+  getFeatures,
+} from "../api/earthquake-service";
+import EarthquakeFilter from "../filter/EarthquakeFilter";
 import EarthquakePagination from "./earthquake-pagination/EarthquakePagination";
 
 function Earthquakes() {
@@ -38,8 +43,15 @@ function Earthquakes() {
     });
   }, [page]);
 
+  const reloadEarthquakeData = (data: IResponseEarthquakes) => {
+    setFeatures(data.data);
+    setPaginationFromApi(data.pagging);
+  };
+
   return (
     <>
+      <EarthquakeFilter loadEarthquakeData={reloadEarthquakeData} />
+
       <Row xs={1} md={2} lg={3} className="g-4">
         {features.map((feature, idx) => (
           <Col key={idx}>
