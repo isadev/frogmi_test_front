@@ -4,7 +4,7 @@ import { getFeatures, IResponseEarthquakes } from "../api/earthquake-service";
 import { Form } from "react-bootstrap";
 
 interface LoadEarthquakeDataFn {
-  loadEarthquakeData: (data: IResponseEarthquakes) => void;
+  loadEarthquakeData: (data: IResponseEarthquakes, magType: string[]) => void;
 }
 
 function EarthquakeFilter(props: LoadEarthquakeDataFn) {
@@ -42,7 +42,7 @@ function EarthquakeFilter(props: LoadEarthquakeDataFn) {
   useEffect(() => {
     getFeatures({ page: 1, perPage: 10, mag_type: magnitudeType }).then(
       (data: IResponseEarthquakes) => {
-        props.loadEarthquakeData(data);
+        props.loadEarthquakeData(data, magnitudeType);
       }
     );
   }, [magnitudeType]);

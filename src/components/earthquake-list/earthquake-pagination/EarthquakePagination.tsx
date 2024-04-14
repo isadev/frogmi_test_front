@@ -7,30 +7,40 @@ import {
 } from "../../api/earthquake-service";
 
 interface EarthquakePaginateFn {
-  loadEarthquakeData: (data: IResponseEarthquakes) => void;
+  pagginateEarthquakeData: (data: IResponseEarthquakes) => void;
   paginationFromApi: IPaging;
+  magType: string[];
+  maxPage: number;
 }
 
 function EarthquakePagination(props: EarthquakePaginateFn) {
   const [page, setPage] = useState(1);
-  const [arrayPages, setArrayPages] = useState(1);
+  const [arrayPages, setArrayPages] = useState(1); // control the start number of the list pages
 
   const changeToPage = (pageNumber: number) => {
-    console.log("change to another page in son: " + pageNumber);
-    if (pageNumber > page) {
-      setArrayPages(pageNumber);
+    if (pageNumber === 1) {
+      setArrayPages(1);
     }
-    if (pageNumber < arrayPages) {
-      setArrayPages(arrayPages - 10);
+
+    if (pageNumber >= 10 && pageNumber % 10 === 0) {
+      setArrayPages(pageNumber + 1);
     }
+
+    if (pageNumber > 1 && pageNumber < page) {
+      setArrayPages(arrayPages - props.maxPage < 0 ? 1 : page - props.maxPage);
+    }
+
+    if (pageNumber === props.paginationFromApi.total_pages) {
+      setArrayPages(props.paginationFromApi.total_pages - props.maxPage);
+    }
+
     setPage(pageNumber);
   };
 
   useEffect(() => {
-    getFeatures({ page, perPage: 10 /* , mag_type: props.magType */ }).then(
+    getFeatures({ page, perPage: 10, mag_type: props.magType }).then(
       (data: IResponseEarthquakes) => {
-        // setPaginationFromApi(data.pagging);
-        props.loadEarthquakeData(data);
+        props.pagginateEarthquakeData(data);
       }
     );
   }, [page]);
@@ -38,18 +48,25 @@ function EarthquakePagination(props: EarthquakePaginateFn) {
   return (
     <>
       <Pagination>
-        <Pagination.First onClick={() => changeToPage(1)} />
-
         {props.paginationFromApi.prev_page ? (
-          <Pagination.Prev
-            onClick={() => changeToPage(props.paginationFromApi.prev_page!)}
-          />
+          <Pagination.First onClick={() => changeToPage(1)} />
         ) : (
           ""
         )}
 
-        {Array.from({ length: 10 }).map((_, index) => (
-          <Pagination.Item onClick={() => changeToPage(arrayPages + index)}>
+        {props.paginationFromApi.prev_page ? (
+          <Pagination.Prev onClick={() => changeToPage(page - 1)} />
+        ) : (
+          ""
+        )}
+
+        {Array.from({
+          length: props.maxPage > 10 ? 10 : props.maxPage,
+        }).map((_, index) => (
+          <Pagination.Item
+            key={index}
+            onClick={() => changeToPage(arrayPages + index)}
+          >
             {arrayPages + index}
           </Pagination.Item>
         ))}
