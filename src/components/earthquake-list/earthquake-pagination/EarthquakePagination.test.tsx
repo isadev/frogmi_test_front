@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
-import { postComment } from "../../api/user";
+import { postComment } from "../../api/earthquake-service";
 
-jest.mock("../../api/user");
+jest.mock("../../api/earthquake-service");
 import EarthquakeComment from "./EarthquakePagination";
 
 jest.mock("axios");

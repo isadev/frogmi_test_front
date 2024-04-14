@@ -13,10 +13,9 @@ import EarthquakePagination from "./earthquake-pagination/EarthquakePagination";
 
 function Earthquakes() {
   const [features, setFeatures] = useState<IEarthquake[]>([]);
-  const [page, setPage] = useState(1);
   const [paginationFromApi, setPaginationFromApi] = useState<IPaging>({
     total_pages: 0,
-    current_page: 1,
+    current_page: 0,
     next_page: null,
     prev_page: null,
     total_entries: 0,
@@ -37,15 +36,23 @@ function Earthquakes() {
   }, []);
 
   useEffect(() => {
-    getFeatures({ page, perPage: 10 }).then((res) => {
-      setFeatures(res.data);
-      setPaginationFromApi(res.pagging);
-    });
-  }, [page]);
+    console.log("cambiamos ac");
+    /* setPaginationFromApi({
+      total_pages: 0,
+      current_page: 1,
+      next_page: null,
+      prev_page: null,
+      total_entries: 0,
+    }); */
+  }, [paginationFromApi]);
 
   const reloadEarthquakeData = (data: IResponseEarthquakes) => {
     setFeatures(data.data);
     setPaginationFromApi(data.pagging);
+  };
+
+  const moveToAnotherPage = (pageNumber: number) => {
+    console.log("en el padre" + pageNumber);
   };
 
   return (
@@ -68,7 +75,21 @@ function Earthquakes() {
           </Col>
         ))}
       </Row>
-      <EarthquakePagination />
+
+      {/* {paginationFromApi ? ( */}
+      <EarthquakePagination
+        loadEarthquakeData={reloadEarthquakeData}
+        paginationFromApi={paginationFromApi}
+        // totalPages={paginationFromApi?.total_pages}
+        // currentPage={paginationFromApi?.current_page}
+        // nextPage={paginationFromApi?.next_page}
+        // prevPage={paginationFromApi?.prev_page}
+        // totalEntries={paginationFromApi?.total_entries}
+        // currentPage={paginationFromApi.total_pages}
+      />
+      {/* ) : (
+        ""
+      )} */}
     </>
   );
 }

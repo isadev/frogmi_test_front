@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./EarthquakeFilter.css";
-import {
-  IEarthquake,
-  postComment,
-  getFeatures,
-  IResponseEarthquakes,
-} from "../api/earthquake-service";
+import { getFeatures, IResponseEarthquakes } from "../api/earthquake-service";
 import { Form } from "react-bootstrap";
 
-interface loadEarthquakeDataFn {
+interface LoadEarthquakeDataFn {
   loadEarthquakeData: (data: IResponseEarthquakes) => void;
 }
 
-function EarthquakeFilter(props: loadEarthquakeDataFn) {
+function EarthquakeFilter(props: LoadEarthquakeDataFn) {
   const earthquakeMagnitudeType = [
     "ml",
     "md",
