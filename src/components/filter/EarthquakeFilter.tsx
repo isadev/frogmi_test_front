@@ -4,10 +4,15 @@ import {
   IEarthquake,
   postComment,
   getFeatures,
+  IResponseEarthquakes,
 } from "../api/earthquake-service";
 import { Form } from "react-bootstrap";
 
-function EarthquakeFilter() {
+interface loadEarthquakeDataFn {
+  loadEarthquakeData: (data: IResponseEarthquakes) => void;
+}
+
+function EarthquakeFilter(props: loadEarthquakeDataFn) {
   const earthquakeMagnitudeType = [
     "ml",
     "md",
@@ -21,10 +26,6 @@ function EarthquakeFilter() {
   ];
 
   const [magnitudeType, setMagnitudeType] = useState<string[]>([]);
-
-  const submitForm = async () => {
-    await getFeatures({ page: 1, perPage: 10, mag_type: magnitudeType });
-  };
 
   const addMagnitude = (e: unknown) => {
     const event = e as React.ChangeEvent<HTMLInputElement>;
@@ -44,7 +45,11 @@ function EarthquakeFilter() {
   };
 
   useEffect(() => {
-    submitForm();
+    getFeatures({ page: 1, perPage: 10, mag_type: magnitudeType }).then(
+      (data: IResponseEarthquakes) => {
+        props.loadEarthquakeData(data);
+      }
+    );
   }, [magnitudeType]);
 
   return (
