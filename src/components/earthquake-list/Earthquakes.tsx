@@ -4,6 +4,7 @@ import EarthquakeComment from "./earthquake-comment/EarthquakeComment";
 import { Row, Col, Card } from "react-bootstrap";
 
 import { IEarthquake, IPaging, getFeatures } from "../api/user";
+import EarthquakePagination from "./earthquake-pagination/EarthquakePagination";
 
 function Earthquakes() {
   const [features, setFeatures] = useState<IEarthquake[]>([]);
@@ -55,6 +56,7 @@ function Earthquakes() {
           </Col>
         ))}
       </Row>
+      <EarthquakePagination />
     </>
   );
 }
