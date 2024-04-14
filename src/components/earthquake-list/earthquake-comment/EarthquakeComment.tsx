@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EarthquakeComment.css";
-import { IEarthquake, postComment } from "../../api/user";
+import { IEarthquake, postComment } from "../../api/earthquake-service";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -10,11 +10,6 @@ interface earthquakeProp {
 
 function EarthquakeComment(props: earthquakeProp) {
   const [userComment, setUserComment] = useState("");
-  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await postComment(userComment, props.earthquake.id);
-    setUserComment("");
-  };
 
   const handleWriteComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserComment(e.target.value);
