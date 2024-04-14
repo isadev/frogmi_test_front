@@ -75,31 +75,4 @@ function EarthquakeComment(props: earthquakeProp) {
   );
 }
 
-{
-  /* <div className="comment">
-  <form onSubmit={(event) => submitForm(event)} className="comment__form">
-    <div className="form-floating mb-3">
-      <textarea
-        className="comment__form-textarea form-control"
-        name="userComment"
-        id="comment"
-        placeholder="comment about this earthquake"
-        value={userComment}
-        onChange={(e) => handleWriteComment(e)}
-      />
-      <label
-        className="d-none d-xl-block"
-        htmlFor="comment"
-        aria-label="userComments"
-      >
-        ¿Quieres dejar un comentario?
-      </label>
-    </div>
-    <button type="submit" style={{ float: "right" }}>
-      Enviar
-    </button>
-  </form>
-</div> */
-}
-
 export default EarthquakeComment;
