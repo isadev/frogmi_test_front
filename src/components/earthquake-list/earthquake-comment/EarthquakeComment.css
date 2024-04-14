@@ -1,0 +1,15 @@
+.comment__form-textarea {
+  width: 10rem;
+}
+
+@media (min-width: 992px) {
+  .comment__form-textarea {
+    width: 15rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .comment__form-textarea {
+    width: 20rem;
+  }
+}
