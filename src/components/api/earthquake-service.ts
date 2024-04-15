@@ -75,6 +75,16 @@ export const getFeatures = async ({
     };
 
     return axios(params).then((res) => {
+      const { total_pages, current_page, next_page, prev_page, total_entries } =
+        res.data;
+      const pagging = {
+        total_pages,
+        current_page,
+        next_page,
+        prev_page,
+        total_entries,
+      };
+      res.data.pagging = pagging;
       return res.data;
     });
   } catch (error) {

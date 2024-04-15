@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Earthquakes.css";
 import EarthquakeComment from "./earthquake-comment/EarthquakeComment";
 import { Row, Col, Card } from "react-bootstrap";
-
 import {
   IEarthquake,
   IPaging,
@@ -10,13 +9,17 @@ import {
   getFeatures,
 } from "../api/earthquake-service";
 import EarthquakeFilter from "../filter/EarthquakeFilter";
+import EarthquakePagination from "./earthquake-pagination/EarthquakePagination";
 
 function Earthquakes() {
   const [features, setFeatures] = useState<IEarthquake[]>([]);
-  const [page, setPage] = useState(1);
+  const [magnitudeType, setMagnitudeType] = useState<string[]>([]);
+  const [magnitudeTypePaggin, setMagnitudeTypePaggin] = useState<string[]>([]);
+  const [maxPageByMagType, setMaxPageByMagType] = useState(10);
+
   const [paginationFromApi, setPaginationFromApi] = useState<IPaging>({
     total_pages: 0,
-    current_page: 1,
+    current_page: 0,
     next_page: null,
     prev_page: null,
     total_entries: 0,
@@ -36,23 +39,34 @@ function Earthquakes() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    getFeatures({ page, perPage: 10 }).then((res) => {
-      setFeatures(res.data);
-      setPaginationFromApi(res.pagging);
-    });
-  }, [page]);
+  const reloadEarthquakeData = (
+    data: IResponseEarthquakes,
+    magType: string[]
+  ) => {
+    setFeatures(data.data);
+    setPaginationFromApi(data.pagging);
 
-  const reloadEarthquakeData = (data: IResponseEarthquakes) => {
+    setMagnitudeType(magType);
+  };
+
+  const pagginateEarthquakeData = (data: IResponseEarthquakes) => {
     setFeatures(data.data);
     setPaginationFromApi(data.pagging);
   };
+
+  useEffect(() => {
+    setMagnitudeTypePaggin(magnitudeType);
+  }, [magnitudeType]);
+
+  useEffect(() => {
+    setMaxPageByMagType(paginationFromApi.total_pages);
+  }, [paginationFromApi]);
 
   return (
     <>
       <EarthquakeFilter loadEarthquakeData={reloadEarthquakeData} />
 
-      <Row xs={1} md={2} lg={3} className="g-4">
+      <Row xs={1} md={2} lg={3} className="mb-4 g-4">
         {features.map((feature, idx) => (
           <Col key={idx}>
             <Card style={{ width: "18rem", height: "14rem" }}>
@@ -68,6 +82,13 @@ function Earthquakes() {
           </Col>
         ))}
       </Row>
+
+      <EarthquakePagination
+        pagginateEarthquakeData={pagginateEarthquakeData}
+        paginationFromApi={paginationFromApi}
+        magType={magnitudeTypePaggin}
+        maxPage={maxPageByMagType}
+      />
     </>
   );
 }
